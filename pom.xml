@@ -12,6 +12,7 @@
 
     <modules>
         <module>overview</module>
+        <module>autoconfigure</module>
     </modules>
 
 
