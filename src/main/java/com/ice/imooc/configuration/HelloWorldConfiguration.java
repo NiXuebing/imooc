@@ -4,6 +4,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
+ * HelloWorld 配置
+ *
  * @author : ACE
  * @date : 2019/8/28
  */
