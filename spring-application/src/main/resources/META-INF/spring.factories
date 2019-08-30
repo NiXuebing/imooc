@@ -7,3 +7,7 @@ com.ice.imooc.context.HelloWorldApplicationContextInitializer
 org.springframework.context.ApplicationListener=\
 com.ice.imooc.listener.AfterHelloWorldApplicationListener,\
 com.ice.imooc.listener.HelloWorldApplicationListener
+
+# Run Listeners
+org.springframework.boot.SpringApplicationRunListener=\
+com.ice.imooc.listener.run.HelloWorldRunListener
