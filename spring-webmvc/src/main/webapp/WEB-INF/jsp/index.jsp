@@ -1,16 +1,10 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: nixuebing
-  Date: 2019/9/1
-  Time: 2:25 PM
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
-<h1>Hello World</h1>
-</body>
-</html>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+    <body>
+
+        <acceptLanguage>${acceptLanguage}</acceptLanguage>
+        <jsessionId>${jsessionId}</jsessionId>
+
+            ${message}
+    </body>
+
+</jsp:root>
