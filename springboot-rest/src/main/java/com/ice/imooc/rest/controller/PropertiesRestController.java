@@ -1,6 +1,7 @@
 package com.ice.imooc.rest.controller;
 
 import com.ice.imooc.rest.domain.User;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,7 +14,8 @@ import java.util.Properties;
  * @author : ACE
  * @date : 2019/9/5
  */
-@RestController
+//@RestController
+@Controller
 public class PropertiesRestController {
 
     @PostMapping(value = "/add/pops",

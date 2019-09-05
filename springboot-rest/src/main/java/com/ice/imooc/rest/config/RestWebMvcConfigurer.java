@@ -1,11 +1,13 @@
 package com.ice.imooc.rest.config;
 
 import com.ice.imooc.rest.http.converter.properties.PropertiesHttpMessageConverter;
-import com.ice.imooc.rest.support.PropertiesHandlerMethodArgumentResolver;
+import com.ice.imooc.rest.method.support.PropertiesHandlerMethodArgumentResolver;
+import com.ice.imooc.rest.method.support.PropertiesHandlerMethodReturnValueHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
@@ -33,6 +35,16 @@ public class RestWebMvcConfigurer implements WebMvcConfigurer {
         newResolvers.add(new PropertiesHandlerMethodArgumentResolver());
         newResolvers.addAll(resolverList);
         requestMappingHandlerAdapter.setArgumentResolvers(newResolvers);
+
+
+
+        List<HandlerMethodReturnValueHandler> handlers = requestMappingHandlerAdapter.getReturnValueHandlers();
+        List<HandlerMethodReturnValueHandler> newHandlers = new ArrayList<>(handlers.size() + 1);
+        newHandlers.add(new PropertiesHandlerMethodReturnValueHandler());
+        newHandlers.addAll(handlers);
+        requestMappingHandlerAdapter.setReturnValueHandlers(newHandlers);
+
+
     }
 
     @Override

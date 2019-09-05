@@ -1,8 +1,12 @@
-package com.ice.imooc.rest.support;
+package com.ice.imooc.rest.method.support;
 
+import com.ice.imooc.rest.http.converter.properties.PropertiesHttpMessageConverter;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpInputMessage;
 import org.springframework.http.MediaType;
+import org.springframework.http.server.ServletServerHttpRequest;
+import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.context.request.ServletWebRequest;
@@ -10,7 +14,6 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.Properties;
@@ -31,17 +34,10 @@ public class PropertiesHandlerMethodArgumentResolver implements HandlerMethodArg
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
                                   NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-        HttpServletRequest request = ((ServletWebRequest) webRequest).getRequest();
-        // 字节流
-        InputStream inputStream = request.getInputStream();
-        // 字节流 -> 字符流
-        MediaType mediaType = MediaType.parseMediaType(request.getHeader(HttpHeaders.CONTENT_TYPE));
-        Charset charset = mediaType.getCharset();
-        charset = charset == null ? Charset.forName("UTF-8") : charset;
+        PropertiesHttpMessageConverter converter = new PropertiesHttpMessageConverter();
 
-        InputStreamReader inputStreamReader = new InputStreamReader(inputStream, charset);
-        Properties properties = new Properties();
-        properties.load(inputStreamReader);
-        return properties;
+        HttpServletRequest request = ((ServletWebRequest) webRequest).getRequest();
+        HttpInputMessage httpInputMessage = new ServletServerHttpRequest(request);
+        return converter.read(Properties.class, httpInputMessage);
     }
 }
