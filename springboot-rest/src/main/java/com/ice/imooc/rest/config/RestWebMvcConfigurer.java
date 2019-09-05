@@ -1,10 +1,16 @@
 package com.ice.imooc.rest.config;
 
 import com.ice.imooc.rest.http.converter.properties.PropertiesHttpMessageConverter;
+import com.ice.imooc.rest.support.PropertiesHandlerMethodArgumentResolver;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
+import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,6 +21,29 @@ import java.util.List;
  */
 @Configuration
 public class RestWebMvcConfigurer implements WebMvcConfigurer {
+
+    @Autowired
+    private RequestMappingHandlerAdapter requestMappingHandlerAdapter;
+
+
+    @PostConstruct
+    public void init() {
+        List<HandlerMethodArgumentResolver> resolverList = requestMappingHandlerAdapter.getArgumentResolvers();
+        List<HandlerMethodArgumentResolver> newResolvers = new ArrayList<>(resolverList.size() + 1);
+        newResolvers.add(new PropertiesHandlerMethodArgumentResolver());
+        newResolvers.addAll(resolverList);
+        requestMappingHandlerAdapter.setArgumentResolvers(newResolvers);
+    }
+
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+        // 添加至首位无效，自定义的 HandlerMethodArgument 优先级低于内建 HandlerMethodArgument
+//        if (resolvers.isEmpty()) {
+//            resolvers.add(new PropertiesHandlerMethodArgumentResolver());
+//        } else {
+//            resolvers.set(0, new PropertiesHandlerMethodArgumentResolver());
+//        }
+    }
 
     @Override
     public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {

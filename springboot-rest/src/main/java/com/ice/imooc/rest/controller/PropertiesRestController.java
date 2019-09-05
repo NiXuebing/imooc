@@ -19,7 +19,9 @@ public class PropertiesRestController {
     @PostMapping(value = "/add/pops",
             consumes = "text/properties;charset=UTF-8"
             )
-    public Properties addProperties(@RequestBody Properties properties) {
+    public Properties addProperties(
+                    //@RequestBody
+                    Properties properties) {
         return properties;
     }
 }
