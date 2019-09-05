@@ -1,20 +1,23 @@
 package com.ice.imooc.rest.controller;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * HelloWorld {@link RestController}
+ * HelloWorld {@link Controller}
  *
  * @author : ACE
- * @date : 2019/9/4
+ * @date : 2019/9/3
  */
-@RestController
+@Controller
 public class HelloWorldController {
 
-    @GetMapping(value = "/hello-world")
-    public String helloWorld(@RequestParam(required = false) String message) {
-        return "Hello: " + message;
+    @RequestMapping("")
+    public String index() {
+        return "index";
     }
+
 }
