@@ -19,6 +19,7 @@
         <module>springboot-view</module>
         <module>springboot-rest</module>
         <module>spring-servlet</module>
+        <module>springboot-servlet</module>
         <module>spring-reactive</module>
     </modules>
 
